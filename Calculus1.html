@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+
+  <head>
+    <base target="_top">
+    <script>
+      function changePage(page) {
+        document.write(page);
+        document.close();
+      }
+    </script>
+  </head>
+
+  <body style="background-color:#99ffdd;">
+      <?var url = getScriptUrl();?>
+     <!--Main Navigation-->
+    <header>
+      <!--Navbar-->
+      <h1> <center> Student Profile - Sydney Ross </center> </h1>
+      <nav class="w3-bar w3-black">
+        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
+        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
+        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
+        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
+        <a href="#Help" class="w3-button w3-bar-item">Help</a>
+        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
+      </nav>
+      <!--End Nav Bar -->
+
+      <!--Mask-->
+      <div id="intro" class="view">
+        <div class="mask">
+        </div>
+      </div>
+      <!--/.Mask-->
+      
+    </header>
+
+    <!--Main layout-->
+    <main>
+      <h1> <center> Calculus 1 </center> </h1>
+      <center>
+        <table>
+          <tr>
+            <td>      
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Noun_Project_question_mark_icon_1101884_cc.svg" alt="Question Mark" width="128" height="128">
+            </td>
+            <td> 
+              <a href="https://cdn.kutasoftware.com/Worksheets/Calc/01%20-%20Limits%20by%20Direct%20Evaluation.pdf">     
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Note.svg" alt="Paper/Pencil" width="128" height="128">
+              </a>
+            </td>
+            <td>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Line-style-icons-calendar-black.svg" alt="Calendar" width="128" height="128">
+            </td>
+            <td>
+              <img src="https://cdn1.iconfinder.com/data/icons/symbols-6/48/29_check_mark_yes_circle_round-1024.png" alt="checkmark cirlce" width="128" height="128">
+            </td>
+          </tr>
+          <tr>
+            <td> <center>Tutoring Help</center> </td>
+            <td> <center>Study Material</center> </td>
+            <td> <center>Reminders</center> </td>
+            <td> <center>Learning Progress</center> </td>
+          </tr>
+        </table>
+      </center>
+
+    </main>
+    <!--Main layout-->
+
+  </body>
+</html>
