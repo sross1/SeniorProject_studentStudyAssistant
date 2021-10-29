@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script>
+      function changePage(page) {
+        document.write(page);
+        document.close();
+      }
+
+      function AddRow()
+      {
+        var firstname = document.getElementById("firstname").value;
+        var lastname = document.getElementById("lastname").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var occupation = document.getElementById("occupation").value;
+        google.script.run.withSuccessHandler(function(output) 
+        {
+          if(output == 'TRUE')
+          {
+            google.script.run.withSuccessHandler(changePage).newPage('Login')    
+          }
+          else if(output == 'FALSE')
+          {
+            document.getElementById("errorMessage").innerHTML = "Failed to Register";     
+          }    
+        }).AddRecord(firstname, lastname, email, password, occupation);
+      }
+    </script>
+  </head>
+  <body style="background-color:#e6fffa;">
+    <?var url = getScriptUrl();?>
+  <h1>Registration Page</h1>
+  <div id="registrationDisplay" >
+    <label>First Name</label><br>
+    <input type="text" id="firstname" /><br>
+    <label>Last Name</label><br>
+    <input type="text" id="lastname" /><br>
+    <label>School Email</label><br>
+    <input type="text" id="email" /><br>
+    <label>Password</label><br>
+    <input type="password" id="password" /><br>
+    <label for="occupation">Are you a Student or a Professor?:</label>
+    <select name="occupation" id="occupation">
+      <option value="Student">Student</option>
+      <option value="Professor">Professor</option>
+    </select><br>
+    <input type="button" value="Submit" onclick="AddRow()" /> <br>
+    <span id="errorMessage" style="color: red" ></span>
+  </div>
+  <hr>
+
+  </body>
+</html>
