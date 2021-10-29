@@ -26,7 +26,17 @@
             if(newUserStatus === 'TRUE'){
               google.script.run.withSuccessHandler(function(successful){
                 if(successful === 'TRUE'){
-                  google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')
+                  google.script.run.withSuccessHandler(function(memberType){
+                    if(memberType === 'STUDENT'){
+                      google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')
+                    }
+                    else if (memberType === 'PROFESSOR'){
+                      google.script.run.withSuccessHandler(changePage).newPage('ProfessorProfile')
+                    }
+                    else{
+                      document.getElementById("errorMessage").innerHTML = "Member type cannot be identified.";
+                    }
+                  }).checkMemberType(username);
                 }
                 else{
                   document.getElementById("errorMessage").innerHTML = "Status not changed successfully";
