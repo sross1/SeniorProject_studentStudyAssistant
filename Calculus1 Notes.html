@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+
+  <head>
+    <base target="_top">
+    <script>
+      function changePage(page) {
+        document.write(page);
+        document.close();
+      }
+    </script>
+  </head>
+
+  <body style="background-color:#99ffdd;">
+      <?var url = getScriptUrl();?>
+     <!--Main Navigation-->
+    <header>
+      <!--Navbar-->
+      <h1> <center> Student Profile </center> </h1>
+      <nav class="w3-bar w3-black">
+        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
+        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
+        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
+        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
+        <a href="#Help" class="w3-button w3-bar-item">Help</a>
+        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
+      </nav>
+      <!--End Nav Bar -->
+
+      <!--Mask-->
+      <div id="intro" class="view">
+        <div class="mask">
+        </div>
+      </div>
+      <!--/.Mask-->
+      
+    </header>
+
+    <!--Main layout-->
+    <main>
+      <h1> <center> Relecture Notes - Calc 1 </center> </h1>
+        <h3> Please pick the topic you want notes on </h3>
+        <ul>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/TheLimit.aspx" target="_blank">Limits</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/InfiniteLimits.aspx" target="_blank">Limits at Invinity</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/DefnOfDerivative.aspx" target="_blank">Definition of Derivatives</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/ProductQuotientRule.aspx" target="_blank">Product and Quotient Rule</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/DiffTrigFcns.aspx" target="_blank">Trig Functions</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/ChainRule.aspx" target="_blank">Chain Rule</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/ImplicitDiff.aspx" target="_blank">Implicit Differentiation</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/LogDiff.aspx" target="_blank">Logarithmic Differentiation</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/DerivAppsIntro.aspx" target="_blank">Applications of Derivatives</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/IntegralsIntro.aspx" target="_blank">Integrals</a></li>
+          <li><a href= "https://tutorial.math.lamar.edu/Classes/CalcI/IntAppsIntro.aspx" target="_blank">Applications of Integrals</a></li>
+        </ul>
+
+    </main>
+    <!--Main layout-->
+
+  </body>
+</html>
