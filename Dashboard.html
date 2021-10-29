@@ -24,7 +24,7 @@
             currentFirstName = "error";
           }
         }).getFirstName();
-        document.getElementById("welcomeMessage").innerHTML = "Welcome, " +currentFirstName;
+        //document.getElementById("welcomeMessage").innerHTML = "Welcome, " +currentFirstName;
       }
     </script>
   </head>
@@ -59,8 +59,7 @@
       <h1> <center> Class Dashboard </center> </h1>
       <h3> <center> Please select a class </center> </h3>
 
-      <a href='<?=url?>?page=Calculus1'> <input type='button' name='Calculus 1' value='Calculus 1' style="width: 250px; height: 250px;">
-      </a>
+      <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('Calc1')">Calculus 1</button>
     </main>
 
     <!--Footer-->
