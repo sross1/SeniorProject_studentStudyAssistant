@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+
+  <head>
+    <base target="_top">
+    <script>
+      var currentFirstName = "default";
+
+      function changePage(page) {
+        document.write(page);
+        document.close();
+      }
+
+      function welcome(){
+        google.script.run.withSuccessHandler(function(userFirstName){
+          currentFirstName = "Start";
+          if(userFirstName != ''){
+            currentFirstName = userFirstName;
+          }
+          else{
+            currentFirstName = "error";
+          }
+        }).getFirstName();
+        document.getElementById("welcomeMessage").innerHTML = "Welcome, " +currentFirstName;
+      }
+    </script>
+  </head>
+
+ <body style="background-color:#99ffdd;" onload="welcome()"> 
+    <?var url = getScriptUrl();?>
+    <!--Main Navigation-->
+    <header>
+      <!--Navbar-->
+      <h1> <center> Dashboard </center> </h1>
+      <span id="welcomeMessage" style="color: w3-black"></span>
+      <nav class="w3-bar w3-black">
+        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
+        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
+        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
+        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
+        <a href="#Help" class="w3-button w3-bar-item">Help</a>
+        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
+      </nav>
+      <!--End Nav Bar -->
+
+      <!--Mask-->
+      <div id="intro" class="view">
+        <div class="mask">
+        </div>
+      </div>
+      <!--/.Mask-->
+      
+    </header>
+
+    <main>
+      <h1> <center> Class Dashboard </center> </h1>
+      <h3> <center> Please select a class </center> </h3>
+
+      <a href='<?=url?>?page=Calculus1'> <input type='button' name='Calculus 1' value='Calculus 1' style="width: 250px; height: 250px;">
+      </a>
+    </main>
+
+    <!--Footer-->
+    <footer class="w3-container w3-padding-64 w3-center w3-black">
+      <p> To learn more about our project, follow us on our social medias </p>
+      <a href="#"><i class="fa fa-facebook-official">Facebook</i></a>
+      <a href="#"><i class="fa fa-twitter"></i>Twitter</a>
+      <a href="#"><i class="fa fa-instagram"></i>Instagram</a>
+      <a href="#"><i class="fa fa-linkedin"></i>Linkedin</a>
+    </footer>
+
+  </body>
+</html>
