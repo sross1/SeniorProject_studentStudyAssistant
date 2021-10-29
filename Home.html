@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+
+  <head>
+    <base target="_top">
+
+    <script>
+      function changePage(page) {
+        document.write(page);
+        document.close();
+      }
+    </script>
+
+  </head>
+
+  <body style="background-color:#99ffdd;">
+
+    <h1> <center> Welcome to Student Study Assistant </center> </h1>
+    <nav class="w3-bar w3-black"></nav>
+    <h4> <center> Please login. If you don't have an account please register for one. </center> </h4>
+    <h6> <center> If you just registered, then please login in with your new creditials. </center> </h6>
+    
+    <div>
+      <center>
+        <input type='button' name='Login' value='Login' style="width: 150px; height: 75px;" onclick="google.script.run.withSuccessHandler(changePage).newPage('Login')">
+        <input type='button' name='Register' value='Register' style="width: 150px; height: 75px;" onclick="google.script.run.withSuccessHandler(changePage).newPage('Registration')">
+      </center>
+    </div>  
+  </body>
+
+</html>
