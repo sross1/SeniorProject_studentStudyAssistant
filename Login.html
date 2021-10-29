@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script >
+    function changePage(page) {
+      document.open(page);
+      document.write(page);
+      document.close();
+    } 
+
+    function LoginUser()
+    {
+      var username = document.getElementById("username-field").value;
+      var password = document.getElementById("password-field").value;
+    
+      google.script.run.withSuccessHandler(function(output) 
+      {
+        if(output == 'TRUE')
+        {
+          google.script.run.withSuccessHandler(function(newUserStatus){
+            if(newUserStatus === 'TRUE'){
+              google.script.run.withSuccessHandler(function(successful){
+                if(successful === 'TRUE'){
+                  google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')
+                }
+                else{
+                  document.getElementById("errorMessage").innerHTML = "Status not changed successfully";
+                }
+              }).changeMemberStatus(username);
+            }
+            else if (newUserStatus === 'FALSE'){
+              google.script.run.withSuccessHandler(changePage).newPage('Dashboard')
+            }
+            else{
+              document.getElementById("errorMessage").innerHTML = "status is " + newUserStatus;
+            }
+          }).checkNewMember(username);
+        }
+        else if(output == 'FALSE')
+        {
+          document.getElementById("errorMessage").innerHTML = "Failed to Login";     
+        }    
+      }).checkLogin(username, password);
+    } 
+  </script>
+</head>
+
+<body style="background-color:#e6fffa;">
+  <?var url = getScriptUrl();?>
+  <main id="main-holder">
+    <h1 id="login-header">Login</h1>  
+    <div id="loginDisplay">
+      <lable>Username</lable><br>
+      <input type="text" name="Username" id="username-field" class="login-display-field" placeholder="Username"/><br>
+      <label>Password</label><br>
+      <input type="password" name="Password" id="password-field" class="login-display-field" placeholder="Password"/><br>
+
+      <input type="button" value="Login" id="login-display-button" onclick="LoginUser()"/><br>
+
+      <span id="errorMessage" style="color: red"></span>
+    </div>
+  
+  </main>
+</body>
+
+</html>
