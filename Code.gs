@@ -31,22 +31,12 @@ function getScriptUrl() {
  return url;
 }
 
-//GET DATA FROM GOOGLE SHEET AND RETURN AS AN ARRAY
-function getData(firstName, lastName){
-  var rows = SpreadsheetApp.getActiveSheet().getRange(2, 1, 6, 2).getValues()
-  var url1 = 'https://docs.google.com/spreadsheets/d/1bYJi7-HJ4eq4BUy4LWMqfT0ehwP44G1jZ3qzrQrDDsU/edit#gid=564535258';
-  //Paste URL of GOOGLE SHEET
-  var ss= SpreadsheetApp.openByUrl(url1);
-  var webAppSheet = ss.getSheetByName("Cleaned Form Data");
-  var getLastRow =  webAppSheet.getLastRow();
-  for(var i = 1; i <= getLastRow; i++)
-  {
-   if(webAppSheet.getRange(i, 1).getValue() == firstName && webAppSheet.getRange(i, 2).getValue() == lastName)
-   {
-     var row = SpreadsheetApp.getActiveSheet().getRange(i, 1, 1, 6).getValues()
-   }    
-  }
-  return row;
+function getData() {
+  return SpreadsheetApp
+      .openById('1bYJi7-HJ4eq4BUy4LWMqfT0ehwP44G1jZ3qzrQrDDsU')
+      .getSheetByName("Cleaned Form Data")
+      .getDataRange()
+      .getValues();
 }
 
 //INCLUDE JAVASCRIPT AND CSS FILES
@@ -89,6 +79,21 @@ function checkNewMember(username){
     }
   }
   return(userStatus);
+}
+
+function checkMemberType(username){
+  var url1 = 'https://docs.google.com/spreadsheets/d/1lRKzrHwzaaWLfW8quisChJgkEzN6AzgOdQDQbW0yV1U/edit#gid=0';
+  //Paste URL of GOOGLE SHEET
+  var ss= SpreadsheetApp.openByUrl(url1);
+  var webAppSheet = ss.getSheetByName("Sheet1");
+  var getLastRow =  webAppSheet.getLastRow();
+  var userType = '';
+  for(var i = 1; i <= getLastRow; i++){
+    if(webAppSheet.getRange(i, 3).getValue() == username){
+      userType = webAppSheet.getRange(i, 5).getValue().toString().toUpperCase();
+    }
+  }
+  return(userType);
 }
 
 function changeMemberStatus(username){
