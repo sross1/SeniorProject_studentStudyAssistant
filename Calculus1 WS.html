@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+
+  <head>
+    <base target="_top">
+    <script>
+      function changePage(page) {
+        document.write(page);
+        document.close();
+      }
+    </script>
+  </head>
+
+  <body style="background-color:#99ffdd;">
+      <?var url = getScriptUrl();?>
+     <!--Main Navigation-->
+    <header>
+      <!--Navbar-->
+      <h1> <center> Student Profile </center> </h1>
+      <nav class="w3-bar w3-black">
+        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
+        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
+        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
+        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
+        <a href="#Help" class="w3-button w3-bar-item">Help</a>
+        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
+      </nav>
+      <!--End Nav Bar -->
+
+      <!--Mask-->
+      <div id="intro" class="view">
+        <div class="mask">
+        </div>
+      </div>
+      <!--/.Mask-->
+      
+    </header>
+
+    <!--Main layout-->
+    <main>
+      <h1> <center> Practice WS (Tactile Learning) - Calc 1 </center> </h1>
+        <h3> Please pick the topic you want a practice worksheet on </h3>
+        <ul>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/01%20-%20Limits%20by%20Direct%20Evaluation.pdf" target="_blank">Limits</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/01%20-%20Limits%20at%20Infinity.pdf" target="_blank">Limits at Invinity</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Definition%20of%20the%20Derivative.pdf" target="_blank">Definition of Derivatives</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Product%20Rule.pdf" target="_blank">Product Rule</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Quotient%20Rule.pdf" target="_blank">Quotient Rule</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/05%20-%20Integration%20Trig.pdf" target="_blank">Trig Functions</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Chain%20Rule.pdf" target="_blank">Chain Rule</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Implicit%20Differentiation.pdf" target="_blank">Implicit Differentiation</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Logarithmic%20Differentiation.pdf" target="_blank">Logarithmic Differentiation</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/04%20-%20Curve%20Sketching.pdf" target="_blank">Curve Sketching</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/06%20-%20First%20Fundamental%20Theorem.pdf" target="_blank">Integrals</a></li>
+          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/07%20-%20Area%20Between%20Curves.pdf" target="_blank">Areas Between Curves</a></li>
+        </ul>
+
+    </main>
+    <!--Main layout-->
+
+  </body>
+</html>
