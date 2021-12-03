@@ -2,11 +2,17 @@
 <html>
   <head>
     <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-      function changePage(page) {
-        document.write(page);
-        document.close();
-      }
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
+      });
+
 
       function AddRow()
       {
@@ -15,41 +21,109 @@
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
         var occupation = document.getElementById("occupation").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var reminders = document.getElementById("reminders").value;
         google.script.run.withSuccessHandler(function(output) 
         {
           if(output == 'TRUE')
           {
-            google.script.run.withSuccessHandler(changePage).newPage('Login')    
+            window.open('https://script.google.com/a/ltu.edu/macros/s/AKfycbxThgbBGDgnu465XkTmF0ZTliuYdP-gCcCkDlfcFZTz/dev?v=login', '_top');    
           }
           else if(output == 'FALSE')
           {
             document.getElementById("errorMessage").innerHTML = "Failed to Register";     
           }    
-        }).AddRecord(firstname, lastname, email, password, occupation);
+        }).AddRecord(firstname, lastname, email, password, occupation, phoneNumber, reminders);
       }
     </script>
   </head>
-  <body style="background-color:#e6fffa;">
+  <body style>
     <?var url = getScriptUrl();?>
-  <h1>Registration Page</h1>
-  <div id="registrationDisplay" >
-    <label>First Name</label><br>
-    <input type="text" id="firstname" /><br>
-    <label>Last Name</label><br>
-    <input type="text" id="lastname" /><br>
-    <label>School Email</label><br>
-    <input type="text" id="email" /><br>
-    <label>Password</label><br>
-    <input type="password" id="password" /><br>
-    <label for="occupation">Are you a Student or a Professor?:</label>
-    <select name="occupation" id="occupation">
-      <option value="Student">Student</option>
-      <option value="Professor">Professor</option>
-    </select><br>
-    <input type="button" value="Submit" onclick="AddRow()" /> <br>
-    <span id="errorMessage" style="color: red" ></span>
-  </div>
-  <hr>
+    <div id="registrationDisplay" >
+      <div class="container">
+        <h1 class="header blue-text">Registration Page</h1>
+
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="firstname" type="text" class="register-display-field">
+            <label for="firstname">First Name</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="lastname" type="text" class="register-display-field">
+            <label for="lastname">Last Name</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="email" type="text" class="register-display-field">
+            <label for="email">Email</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="password" type="password" class="register-display-field">
+            <label for="password">Password</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="phoneNumber" type="text" class="register-display-field">
+            <label for="phoneNumber">Phone Number</label>
+          </div>
+            <div class="input-field col s12">
+            <select name="reminders" id="reminders">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="YES">Yes</option>
+              <option value="NO">No</option>
+            </select>
+            <label>Would you like Reminders?</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <select name="occupation" id="occupation">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="Student">Student</option>
+              <option value="Professor">Professor</option>
+            </select>
+            <label>Are you a Student or a Professor?</label>
+          </div>
+        </div>
+
+        <div class= "row">
+          <button onclick="AddRow()" class="waves-effect waves-light btn-large green z-depth-2"><i class="material-icons right">add</i>Register</button>
+          <span id="errorMessage" style="color: red" ></span>
+        </div>
+        <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=home"class="waves-effect waves-light btn black z-depth-2"><i 
+          class="material-icons   right">arrow_back</i>Back To Home</a>
+      </div>
+    </div><br><br><br><br><br><br>
+
+  <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
+    </footer>
 
   </body>
 </html>
