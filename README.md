@@ -1,2 +1,2 @@
 # SeniorProject_studentStudyAssistant
-Kim and I's Senior Project. We are creating a student Study Assistant
+Kim Lam, Sydney Ross, and Justin Light's Senior Project. We are creating a student Study Assistant.
