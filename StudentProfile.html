@@ -1,136 +1,189 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-
   <head>
-  <base target="_top">	<!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-	<link rel="stylesheet" type="text/css"
-		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
   <?!= include('JavaScript'); ?><!--INCLUDE JavaScript.html FILE-->
 
     <script>
 
-      function changePage(page) {
-        document.write(page);
-        document.close();
+      function displayProfile()
+      {
+        var user = localStorage.getItem("username");
+        document.getElementById("email").innerHTML = user;
+        google.script.run.withSuccessHandler(updateInfo).getInfoData(user);
+        google.script.run.withSuccessHandler(updateLearningProfile).getLearningProfile(user);
       }
 
-      var data = [
-        [1, "Tim", "USA"],
-        [2, "Tom", "England"]
-      ];
+      function updateInfo(infoData, learningProfile)
+      {
+        document.getElementById("first_name").value = infoData[0];
+        document.getElementById("last_name").value = infoData[1];  
+        document.getElementById("email").value =infoData[2];  
+        document.getElementById("phone").value = infoData[3];
+        document.getElementById("password").value = infoData[4];
+        document.getElementById("alerts").value = infoData[5];
+        M.updateTextFields();
+      }
 
-      document.addEventListner("DOMContentLoaded", function(){
-          var tbody = document.getElementById('table-body');
-          var row = document.createElement('tr');
-          var col1 = document.createElement('td');
-          col1.textContent = 'Apple';
-          row.appendChild(col1);
-          tbody.appendChild(row)
-      });
+      function updateLearningProfile(learningProfile)
+      {
+        if(learningProfile[0] != 'N/A')
+        {
+          document.getElementById("newUserInstructions").style.display = "none";
+        }
+
+        document.getElementById("predicted_style").value = learningProfile[0];    
+        document.getElementById("procrastination").value = learningProfile[1];    
+        document.getElementById("online_learning").value = learningProfile[2];
+        M.updateTextFields();
+      }
 
     </script>
 
 
   </head>
   
-  <body style="background-color:#00e6b8;">
-      <?var url = getScriptUrl();?>
-     <!--Main Navigation-->
+  <body onload="displayProfile()">
+    <?var url = getScriptUrl();?>
     <header>
-      <!--Navbar-->
-      <h1> <center> Student Profile </center> </h1>
-      <nav class="w3-bar w3-black">
-        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
-        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
-        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
-        <a href="#Help" class="w3-button w3-bar-item">Help</a>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
-      </nav>
-      <!--End Nav Bar -->
+      
+      <h1 class="header center green-text">Student Profile</h1>
 
-      <!--Mask-->
-      <div id="intro" class="view">
-        <div class="mask">
+      <!--Navbar-->
+      <nav>
+        <div class="nav-wrapper blue">
+          <ul id="nav" class="left">
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>                     
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
+          </ul>
         </div>
-      </div>
-      <!--/.Mask-->
+      </nav>
+      <!--End NavBar -->
+
     </header>
 
-    <h4> Student Profile Quiz: </h4>
-
-    <div id="newUserInstructions">
-      <p> If you are a new user please fill out this <a href= "https://forms.gle/zCSerPvzBwxx34Lv8" target="_blank">form</a> to create your user profile.</p>
+    
+    <!-- Survey -->
+    <div class="container center-align" id="newUserInstructions" display="none">
+      <h4> Student Profile Quiz: </h4>
+      <h8> If you are a new user please fill out this form to setup your profile: </h8>
+      
+      <div class="row center-align">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfHVr36hYZ8bIKjjk0SCgyKPGrBiH33zfT1oTI91384dY1ucg/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      </div>
     </div>
-
+    <!-- End Survey -->
+  
+    <span id="errorMessage" style="color: red" ></span>
     <br>
-    <center>
-    <div class="wrapper">
-    <div class="left">
-        <img src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Clipart.png" 
-        alt="user" width="100">
-        <h4>User's Name</h4>
-         <p>Student</p>
+
+    <!-- User's name -->
+    <div class="container center-align" display="none">
+      <i class="large material-icons blue-text">account_circle</i>
+      <div class="row">
+        <h4 class="center-align">First Name</h4>
+        <div class="input-field col s12">
+          <input disabled value id="first_name" type="text" class="center">
+        </div>
+      </div>
+      <div class="row">
+        <h4 class="center-align">Last Name</h4>
+        <div class="input-field col s12">
+          <input disabled id="last_name" type="text" class="center">
+        </div>
+      </div>
     </div>
-    <div class="right">
-        <div class="info">
-            <h3>Information</h3>
+    <!-- End User's name -->
+
+    <!-- User Display -->
+    <div class="container" display = "none">
+      <div class="row">
+
+        <!-- User Information -->
+        <div class="col l6 s12">
+          <div class="info">
+            <h3 class="center-align green-text">Information</h3>
             <div class="info_data">
               <div class="data">
-                <h4>Username</h4>
-                <p>sross1@ltu.edu</p>
-             </div>
-             <div class="data">
-               <h4>Phone</h4>
-                <p>0001-213-998761</p>
-              </div>
-             <div class="data">
-               <h4>Password</h4>
-                <p>*******</p>
+                <h4 class="center-align">Username</h4>
+                <input disabled id="email" type="text" class="center">
               </div>
               <div class="data">
-               <h4>Notifications</h4>
-                <p>ON</p>
-              </div>
-            </div>
-        </div>
-
-      <div class="projects">
-            <h3>Learning Profile</h3>
-            <div class="projects_data">
-                 <div class="data">
-                    <h4>Predicted Learning Style</h4>
-                    <p>Visual</p>
-                 </div>
-                 <div class="data">
-                   <h4>Procrastination Habits</h4>
-                    <p>Often. You often procrastinate on work. We recommend you turn reminders on to help motivate you and better balance your time.</p>
+                <h4 class="center-align">Phone Number</h4>
+                <input disabled id="phone" type="text" class="center">
               </div>
               <div class="data">
-               <h4>Online Learning Preference</h4>
-                <p>Sometimes. You sometimes like online learning depending on the subject and potentially the professor.</p>
+                <h4 class="center-align">Password</h4>
+                <input disabled id="password" type="text" class="center">
+              </div>
+              <div class="data">
+                <h4 class="center-align">Notifications</h4>
+                <input disabled id="alerts" type="text" class="center">
               </div>
             </div>
+          </div>
         </div>
+        <!-- End User Information -->
 
-            <!--Footer-->
-    <footer class="w3-container w3-padding-64 w3-center w3-black">
-      <p> To learn more about our project, follow us on our social medias </p>
-      <a href="#"><i class="fa fa-facebook-official">Facebook</i></a>
-      <a href="#"><i class="fa fa-twitter"></i>Twitter</a>
-      <a href="#"><i class="fa fa-instagram"></i>Instagram</a>
-      <a href="#"><i class="fa fa-linkedin"></i>Linkedin</a>
+        <!-- Learning Profile -->
+        <div class="col l4 offset-l2 s12">
+          <h3 class="center-align green-text">Learning Profile</h3>
+          <div class="projects_data">
+            <div class="data">
+              <h4 class="center-align">Predicted Learning Style</h4>
+              <input disabled id="predicted_style" type="text" class="center">
+            </div>
+            <div class="data">
+              <h4 class="center-align">Procrastination Habits</h4>
+              <input disabled id="procrastination" type="text" class="center">
+            </div>
+            <div class="data">
+              <h4 class="center-align">Online Learning Preference</h4>
+              <input disabled id="online_learning" type="text" class="center">
+            </div>
+          </div>
+        </div>
+        <!-- End Learning Profile -->
+
+      </div>
+    </div><br><br>
+    <!-- End User Display -->
+
+
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
     </footer>
-    </div>
-</div>
-</center>
 
   </body>
 </html>
