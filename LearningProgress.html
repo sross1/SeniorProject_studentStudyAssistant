@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
+	  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	  <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <?!= include('JavaScript'); ?><!--INCLUDE JavaScript.html FILE-->
+  </head>
+
+  <script>
+    function calculateGrade(){
+      var understanding = document.getElementById("understanding").value;
+      understanding = understanding / 100;
+      var assignmentTotal = document.getElementById("assignmentTotal").value;
+      var assignmentWeight = document.getElementById("assignmentWeight").value;
+      assignmentWeight = assignmentWeight / 100;
+      
+      var weightedTotal = assignmentTotal * assignmentWeight;
+      var weightedAssignmentPoints = understanding * weightedTotal;
+      
+      document.getElementById("predictedGrade").innerHTML = "Predicted Score: " + weightedAssignmentPoints + " / " + weightedTotal;
+
+    }
+  </script>
+
+  <body>
+    <header>
+
+      <h1 class="header center green-text">Learning Progress</h1>
+
+      <!-- Navbar -->
+      <nav>
+        <div class="nav-wrapper blue">
+          <ul id="nav" class="left">
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=studentProfile">Profile</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!-- End NavBar -->
+    </header>
+
+    <main>
+
+      <div id="gradePredictDisplay" >
+        <center>
+        <div class="container">
+          <h3 class="header blue-text">Understanding Prediction Calculator</h3><br><br>
+
+          <div class="row">
+           <div class="input-field col s6">
+              <input id="understanding" type="text" class="progress-display-field">
+              <label for="understanding">Your Understanding, out of 100, of the Assignment</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s3">
+              <input id="assignmentTotal" type="text" class="progress-display-field">
+              <label for="assignmentTotal">Total Assignment Points</label>
+            </div>
+            <div class="input-field col s3">
+              <input id="assignmentWeight" type="text" class="progress-display-field">
+              <label for="assignmentWeight">Assignment Weight (do not include %)</label>
+            </div>
+            <div class="col 12">
+             <button onclick="calculateGrade()" class="waves-effect waves-light btn-large green z-depth-2"><i class="material-icons right"></i>Predict Assignment Grade</button>
+              <span id="predictedGrade" style="color: green"></span>
+              <span id="errorMessage" style="color: red" ></span>
+            </div>
+          </div>
+        </div>
+        </center>
+      </div><br><br><br><br><br><br><br><br>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
