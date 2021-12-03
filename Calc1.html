@@ -1,77 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-
   <head>
     <base target="_top">
-    <script>
-      function changePage(page) {
-        document.write(page);
-        document.close();
-      }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
   </head>
-
-  <body style="background-color:#99ffdd;">
-      <?var url = getScriptUrl();?>
+  
+  <body>
+    <?var url = getScriptUrl();?>
      <!--Main Navigation-->
     <header>
-      <!--Navbar-->
-      <h1> <center> Student Profile</center> </h1>
-      <nav class="w3-bar w3-black">
-        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
-        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
-        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
-        <a href="#Help" class="w3-button w3-bar-item">Help</a>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
-      </nav>
-      <!--End Nav Bar -->
 
-      <!--Mask-->
-      <div id="intro" class="view">
-        <div class="mask">
+      <h1 class="header center green-text">Class Dashboard</h1>
+
+      <!--Navbar-->
+      <nav>
+        <div class="nav-wrapper blue">
+          <ul id="nav" class="left">
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=studentProfile">Profile</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>            
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
+          </ul>
         </div>
-      </div>
-      <!--/.Mask-->
+      </nav>
+      <!--End NavBar -->
+
+      <h2 class="center-align">Calculus 1</h2><br><br>
       
     </header>
 
-    <!--Main layout-->
-    <main>
-      <h1> <center> Calculus 1 </center> </h1>
-      <center>
-        <table>
-          <tr>
-            <td>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Noun_Project_question_mark_icon_1101884_cc.svg" alt="Question Mark" width="128" height="128" onclick="google.script.run.withSuccessHandler(changePage).newPage('Calc1 Tutoring')">
-            </td>
-            <td> 
-              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Note.svg" alt="Paper/Pencil" width="128" height="128" onclick="google.script.run.withSuccessHandler(changePage).newPage('Calculus1 WS')">
-            </td>
-            <td>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Notebook_%28169670%29_-_The_Noun_Project.svg" alt="Notebook" width="128" height="128" onclick="google.script.run.withSuccessHandler(changePage).newPage('Calculus1 Notes')">
-            <td>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Line-style-icons-calendar-black.svg" alt="Calendar" width="128" height="128">
-            </td>
-            <td>
-              <img src="https://cdn1.iconfinder.com/data/icons/symbols-6/48/29_check_mark_yes_circle_round-1024.png" alt="checkmark cirlce" width="128" height="128">
-            </td>
-          </tr>
-          <tr>
-            <td> <center>Tutoring Help</center> </td>
-            <td> <center>Practice Material</center> </td>
-            <td> <center>Relecture Notes</center> </td>
-            <td> <center>Reminders</center> </td>
-            <td> <center>Learning Progress</center> </td>
-          </tr>
-        </table>
-      </center>
+    <!-- Main layout -->
+    <div class="container center-align">
+      <div class="row">
+        <div class="col s6 m3 center-align">
+          <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=calc1Tutoring"class="btn-floating btn-large waves-effect waves-light blue z-depth-3"><i class="material-icons">help</i></a>
+          <h5 class="header col s12 light">Tutoring Help</h5>
+        </div>
+        <div class="col s6 m3 center-align">
+          <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=calc1WS"class="btn-floating btn-large waves-effect waves-light green z-depth-3"><i class="material-icons">assignment</i></a>
+          <h5 class="header col s12 light">Practice Material</h5>
+        </div>
+        <div class="col s6 m3 center-align">
+          <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=calc1Notes"class="btn-floating btn-large waves-effect waves-light blue z-depth-3"><i class="material-icons">library_books</i></a>
+          <h5 class="header col s12 light">Lecture Notes</h5>
+        </div>
+        <div class="col s6 m3 center-align">
+          <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=learningProgress"class="btn-floating btn-large waves-effect waves-light green z-depth-3"><i class="material-icons">trending_up</i></a>
+        <h5 class="header col s12 light">Learning Progress</h5>
+        </div>
 
-    </main>
-    <!--Main layout-->
+      </div>
+    </div><br><br><br><br><br><br><br><br><br><br>
+    <!-- End Main layout -->
+
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
+    </footer>
 
   </body>
 </html>
