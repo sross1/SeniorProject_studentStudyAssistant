@@ -1,75 +1,93 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-
   <head>
     <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
       var currentFirstName = "default";
 
-      function changePage(page) {
-        document.write(page);
-        document.close();
-      }
-
       function welcome(){
-        google.script.run.withSuccessHandler(function(userFirstName){
-          currentFirstName = "Start";
-          if(userFirstName != ''){
-            currentFirstName = userFirstName;
-          }
-          else{
-            currentFirstName = "error";
-          }
-        }).getFirstName();
-        //document.getElementById("welcomeMessage").innerHTML = "Welcome, " +currentFirstName;
+        var email = localStorage.getItem("username");
+        document.getElementById("welcomeMessage").innerHTML = "Welcome " + email;
       }
     </script>
   </head>
 
- <body style="background-color:#99ffdd;" onload="welcome()"> 
+ <body onload="welcome()"> 
     <?var url = getScriptUrl();?>
     <!--Main Navigation-->
     <header>
-      <!--Navbar-->
-      <h1> <center> Dashboard </center> </h1>
-      <span id="welcomeMessage" style="color: w3-black"></span>
-      <nav class="w3-bar w3-black">
-        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
-        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
-        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
-        <a href="#Help" class="w3-button w3-bar-item">Help</a>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
-      </nav>
-      <!--End Nav Bar -->
 
-      <!--Mask-->
-      <div id="intro" class="view">
-        <div class="mask">
+      <h1 class="header center green-text">Dashboard</h1>
+      <h5 id="welcomeMessage"></h5>
+
+      <!--Navbar-->
+      <nav>
+        <div class="nav-wrapper blue">
+          <ul id="nav" class="left">
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=studentProfile">Profile</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>            
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
+          </ul>
         </div>
-      </div>
-      <!--/.Mask-->
-      
+      </nav>
+      <!--End NavBar -->
+
     </header>
 
+    <!-- Class Select -->
     <main>
-      <h1> <center> Class Dashboard </center> </h1>
-      <h3> <center> Please select a class </center> </h3>
 
-      <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('Calc1')">Calculus 1</button>
+      <div class="container center-align">
+        <h3 class="header center black-text">Class Dashboard</h3>
+        <h5 class="header col s12 light">Please select a class:</h5><br>
+        <div class="row">
+          <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=calc1"class="waves-effect waves-light btn blue"><i 
+            class="material-icons   right">arrow_forward</i>Calculus 1</a>
+        </div>
+        <div class="row">
+          <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=dashboard"class="waves-effect waves-light btn green"><i 
+            class="material-icons   right">arrow_forward</i>Computer Science 2</a>
+        </div>
+        <div class="row">
+          <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=dashboard"class="waves-effect waves-light btn blue"><i 
+            class="material-icons   right">arrow_forward</i>Data Structures</a>
+        </div>
+        <br><br><br><br><br><br>
+      </div>
+
     </main>
+    <!-- End Class Select -->
 
-    <!--Footer-->
-    <footer class="w3-container w3-padding-64 w3-center w3-black">
-      <p> To learn more about our project, follow us on our social medias </p>
-      <a href="#"><i class="fa fa-facebook-official">Facebook</i></a>
-      <a href="#"><i class="fa fa-twitter"></i>Twitter</a>
-      <a href="#"><i class="fa fa-instagram"></i>Instagram</a>
-      <a href="#"><i class="fa fa-linkedin"></i>Linkedin</a>
+
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
     </footer>
-
+    
   </body>
 </html>
