@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
+	  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	  <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <?!= include('JavaScript'); ?><!--INCLUDE JavaScript.html FILE-->
+  </head>
+
+  <body>
+    <header>
+      
+      <h1 class="header center green-text">Feedback</h1>
+
+      <!--Navbar-->
+      <nav>
+        <div class="nav-wrapper blue">
+          <ul id="nav" class="left">
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=studentProfile">Profile</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!--End NavBar -->
+
+    </header>
+
+    <main>
+
+      <div class="container center-align" id="feedback_survey" display="none">
+        <h4> Feedback Form: </h4>
+        <h8> We value your feedback, please let us know what you think of our product. Any problems, questions, ideas, and/or praise is welcomed. </h8>
+      
+        <!-- Survey -->
+        <div class="row center-align">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScnv2ULvh3xzT80OyjI3iXBCXy6GhyyVF_MkVQ5cLP9dECdkw/viewform?embedded=true" width="640" height="978" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+        <!-- End Survey -->
+      </div>
+    
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
