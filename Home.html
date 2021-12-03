@@ -1,34 +1,101 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-
+    
   <head>
     <base target="_top">
-
-    <script>
-      function changePage(page) {
-        document.write(page);
-        document.close();
-      }
-    </script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
   </head>
 
-  <body style="background-color:#99ffdd;">
-
-    <h1> <center> Welcome to Student Study Assistant </center> </h1>
-    <nav class="w3-bar w3-black"></nav>
-    <h4> <center> Please login. If you don't have an account please register for one. </center> </h4>
-    <h6> <center> If you just registered, then please login in with your new creditials. </center> </h6>
+  <body style>
     
-    <div>
-      <center>
-        <input type='button' name='Login' value='Login' style="width: 150px; height: 75px;" onclick="google.script.run.withSuccessHandler(changePage).newPage('Login')">
-        <input type='button' name='Register' value='Register' style="width: 150px; height: 75px;" onclick="google.script.run.withSuccessHandler(changePage).newPage('Registration')">
-      </center>
-    </div>  
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br>
+        <br>
+        <h1 class="header center blue-text">Welcome to Student Study Assistant</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">Please login. If you don't have an account please register for one.</h5>
+        </div>
+        <div class="row center">
+          <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=login"class="waves-effect waves-light btn-large blue z-depth-2"><i 
+            class="material-icons   right">group</i>Login</a>
+          <a href="<?= ScriptApp.getService().getUrl(); ?>?v=register" class="waves-effect waves-light btn-large green z-depth-2"><i 
+            class="material-icons   right">group_add</i>Register</a>
+        </div>
+        <br>
+        <br>
+      </div>
+      <div class="container">
+        <div class="section">
+
+          <!--   Icon Section   -->
+          <div class="row">
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center light-blue-text"><i class="material-icons">local_library</i></h2>
+                <h5 class="center">Your Own Personalized-Tutor</h5>
+
+                <p class="light">Description goes here.</p>
+              </div>
+            </div>
+
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+                <h5 class="center">A personalized Profile</h5>
+
+                <p class="light">Description goes here.</p>
+              </div>
+            </div>
+
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h2 class="center light-blue-text"><i class="material-icons">school</i></h2>
+                <h5 class="center">Increase Your GPA</h5>
+
+                <p class="light">Description goes here.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Company Bio</h5>
+            <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. We are working hard to make this idea work and any type of help is welcomed to continue the development of this application.</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          Made by <a class="blue-text text-lighten-3">Kim Lam, Sydney Ross, and Justin Light</a>
+        </div>
+      </div>
+      </div>
+    </footer>
+    
   </body>
 
 </html>
