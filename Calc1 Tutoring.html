@@ -1,31 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-
   <head>
-  <base target="_top">	<!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-	<link rel="stylesheet" type="text/css"
-		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
   <?!= include('JavaScript'); ?><!--INCLUDE JavaScript.html FILE-->
 
     <script>
-
-      function changePage(page) {
-        document.write(page);
-        document.close();
-      }
-
-      var data = [
-        [1, "Tim", "USA"],
-        [2, "Tom", "England"]
-      ];
-
       document.addEventListner("DOMContentLoaded", function(){
           var tbody = document.getElementById('table-body');
           var row = document.createElement('tr');
@@ -40,21 +27,26 @@
 
   </head>
   
-  <body style="background-color:#00e6b8;">
+  <body>
       <?var url = getScriptUrl();?>
      <!--Main Navigation-->
     <header>
-      <!--Navbar-->
-      <h1> <center> Calculus 1 Tutoring Center/Connections </center> </h1>
-      <nav class="w3-bar w3-black">
-        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
-        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
-        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
-        <a href="#Help" class="w3-button w3-bar-item">Help</a>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
-      </nav>
-      <!--End Nav Bar -->
+      
+    <h1 class="header center green-text">Tutoring</h1>
+
+    <!--Navbar-->
+    <nav>
+      <div class="nav-wrapper blue">
+        <ul id="nav" class="left">
+          <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
+          <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=studentProfile">Profile</a></li>
+          <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
+          <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>            
+          <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!--End NavBar -->
 
       <!--Mask-->
       <div id="intro" class="view">
@@ -62,49 +54,54 @@
         </div>
       </div>
       <!--/.Mask-->
-    </header>
-    <br>
-    <div class="wrapper">
-    <div class="left">
-     <center>
-        <img src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG-Clipart.png" 
-        alt="user" width="100">
-        <h4>Tutor's Name</h4>
-         <p>Major</p>
-      </center>
-    </div>
-    <div class="right">
-      <center>
-        <div class="info">
-            <div class="info_data">
-              <div class="data">
-                <h4>Email</h4>
-                <p>sross1@ltu.edu</p>
-              </div>
-              <div class="data">
-               <h4>Phone</h4>
-                <p>0001-213-998761</p>
-              </div>
-            </div>
-         </div>
-       </center>
-     </div>
+    </header><br><br>
 
- 
-      <center>
-         <button class="w3-button w3-bar-item" onclick="https://www.ltu.edu/aac/tutoring.asp">Make an Appointment</button>
-      </center>
+    
+    <div class="container center-align">
+      <i class="large material-icons green-text">account_circle</i>
+      <h4>Tutor's Name</h4>
+      <p>Major</p>
 
+      <div class="info">
+        <div class="info_data">
+          <div class="data">
+            <h4>Email</h4>
+            <p>sross1@ltu.edu</p>
+          </div>
+          <div class="data">
+            <h4>Phone</h4>
+            <p>0001-213-998761</p>
+          </div>
+        </div>
+      </div>
+      <a href= "https://www.ltu.edu/aac/tutoring.asp" target="_blank" class="waves-effect waves-light btn-large blue"><i 
+            class="material-icons   right">event</i>Make an Appointment</a>
+    </div><br><br>
 
-    <!--Footer-->
-    <footer class="w3-container w3-padding-64 w3-center w3-black">
-      <p> To learn more about our project, follow us on our social medias </p>
-      <a href="#"><i class="fa fa-facebook-official">Facebook</i></a>
-      <a href="#"><i class="fa fa-twitter"></i>Twitter</a>
-      <a href="#"><i class="fa fa-instagram"></i>Instagram</a>
-      <a href="#"><i class="fa fa-linkedin"></i>Linkedin</a>
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
     </footer>
-    </div>
 
   </body>
 </html>
