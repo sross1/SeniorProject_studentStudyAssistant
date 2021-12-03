@@ -1,65 +1,170 @@
 <!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> 
+  <script>
+
+    function displayWorksheets()
+    {
+      var user = localStorage.getItem("username");
+      google.script.run.withSuccessHandler(changeDisplay).getLearningStyle(user);
+    }
+
+    function changeDisplay(learning_style)
+    {
+      if(learning_style === 'tactile')
+      {
+        document.getElementById("tactileDisplay").style.display = "flex";
+      }
+      else if(learning_style === 'audio')
+      {
+        document.getElementById("audioDisplay").style.display = "flex";
+      }
+      else if(learning_style === 'visual')
+      {
+        document.getElementById("visualDisplay").style.display = "flex";
+      }
+      else
+        document.getElementById("errorMessage").innerHTML = "Failed to find learning style!";
+    }
+
+  </script>
 
   <head>
     <base target="_top">
-    <script>
-      function changePage(page) {
-        document.write(page);
-        document.close();
-      }
-    </script>
   </head>
 
-  <body style="background-color:#99ffdd;">
-      <?var url = getScriptUrl();?>
-     <!--Main Navigation-->
-    <header>
-      <!--Navbar-->
-      <h1> <center> Student Profile </center> </h1>
-      <nav class="w3-bar w3-black">
-        <button class="w3-button w3-bar-item" onclick="google.script.run.withSuccessHandler(changePage).newPage('StudentProfile')">Profile</button>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Dashboard')">Dashboard</button>          
-        <a href="#calendar" class="w3-button w3-bar-item">Calendar</a>
-        <a href="#contact" class="w3-button w3-bar-item">Feedback</a>
-        <a href="#Help" class="w3-button w3-bar-item">Help</a>
-        <button class="w3-button w3-bar-item " onclick="google.script.run.withSuccessHandler(changePage).newPage('Home')">LogOut</button>
-      </nav>
-      <!--End Nav Bar -->
+  <body onload="displayWorksheets()">
 
-      <!--Mask-->
-      <div id="intro" class="view">
-        <div class="mask">
+    <?var url = getScriptUrl();?>
+    <header>
+
+      <h1 class="header center green-text" class="z-depth-5">Class Worksheets</h1>
+
+      <!--Navbar-->
+      <nav>
+        <div class="nav-wrapper blue">
+          <ul id="nav" class="left">
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=studentProfile">Profile</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>            
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
+          </ul>
         </div>
-      </div>
-      <!--/.Mask-->
+      </nav>
+      <!-- End NavBar -->
       
     </header>
 
-    <!--Main layout-->
-    <main>
-      <h1> <center> Practice WS (Tactile Learning) - Calc 1 </center> </h1>
-        <h3> Please pick the topic you want a practice worksheet on </h3>
-        <ul>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/01%20-%20Limits%20by%20Direct%20Evaluation.pdf" target="_blank">Limits</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/01%20-%20Limits%20at%20Infinity.pdf" target="_blank">Limits at Invinity</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Definition%20of%20the%20Derivative.pdf" target="_blank">Definition of Derivatives</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Product%20Rule.pdf" target="_blank">Product Rule</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Quotient%20Rule.pdf" target="_blank">Quotient Rule</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/05%20-%20Integration%20Trig.pdf" target="_blank">Trig Functions</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Chain%20Rule.pdf" target="_blank">Chain Rule</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Implicit%20Differentiation.pdf" target="_blank">Implicit Differentiation</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Logarithmic%20Differentiation.pdf" target="_blank">Logarithmic Differentiation</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/04%20-%20Curve%20Sketching.pdf" target="_blank">Curve Sketching</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/06%20-%20First%20Fundamental%20Theorem.pdf" target="_blank">Integrals</a></li>
-          <li><a href= "https://cdn.kutasoftware.com/Worksheets/Calc/07%20-%20Area%20Between%20Curves.pdf" target="_blank">Areas Between Curves</a></li>
-        </ul>
 
-    </main>
-    <!--Main layout-->
+    <main>
+
+      <!-- Tactile -->
+      <div id="tactileDisplay"  style="display:none;">
+        <div class="container">
+          <h2 class="center-align">Practice Material (Tactile Learning) - Calc 1</h2>
+          <h4 class="center-align">Please pick the topic you want a practice worksheet on:</h4>
+
+          <div class="collection center-align">
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/01%20-%20Limits%20by%20Direct%20Evaluation.pdf" target="_blank" class="collection-item blue-text">Limits</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/01%20-%20Limits%20at%20Infinity.pdf" target="_blank" class="collection-item blue-text">Limits at Invinity</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Definition%20of%20the%20Derivative.pdf" target="_blank" class="collection-item blue-text">Definition of Derivatives</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Product%20Rule.pdf" target="_blank" class="collection-item blue-text">Product Rule</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Quotient%20Rule.pdf" target="_blank" class="collection-item blue-text">Quotient Rule</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/05%20-%20Integration%20Trig.pdf" target="_blank" class="collection-item blue-text">Trig Functions</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Chain%20Rule.pdf"  target="_blank" class="collection-item blue-text">Chain Rule</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Implicit%20Differentiation.pdf" target="_blank" class="collection-item blue-text">Implicit Differentiation</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/03%20-%20Logarithmic%20Differentiation.pdf" target="_blank" class="collection-item blue-text">Logarithmic Differentiation</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/04%20-%20Curve%20Sketching.pdf" target="_blank" class="collection-item blue-text">Curve Sketching</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/06%20-%20First%20Fundamental%20Theorem.pdf" target="_blank" class="collection-item blue-text">Integrals</a>
+            <a href="https://cdn.kutasoftware.com/Worksheets/Calc/07%20-%20Area%20Between%20Curves.pdf" target="_blank" class="collection-item blue-text">Areas Between Curves</a>
+          </div>
+        </div>
+      </div>
+      <!-- End Tactile -->
+
+
+      <!-- Audio -->
+      <div id="audioDisplay"  style="display:none;">
+        <div class="container">
+          <h2 class="center-align">Practice Material (Audio Learning) - Calc 1</h2>
+          <h4 class="center-align">Please pick the topic you want a practice video on:</h4>
+
+          <div class="collection center-align">
+            <a href="https://www.youtube.com/watch?v=YNstP0ESndU" target="_blank" class="collection-item blue-text">Limits</a>
+            <a href="https://www.youtube.com/watch?v=FVJNuukADeQ" target="_blank" class="collection-item blue-text">Limits at Invinity</a>
+            <a href="https://www.youtube.com/watch?v=-aTLjoDT1GQ" target="_blank" class="collection-item blue-text">Definition of Derivatives</a>
+            <a href="https://www.youtube.com/watch?v=17X5g9QArTc" target="_blank" class="collection-item blue-text">Product Rule</a>
+            <a href="https://www.youtube.com/watch?v=8jVDEcQ0wXk" target="_blank" class="collection-item blue-text">Quotient Rule</a>
+            <a href="https://www.youtube.com/watch?v=PEqCa0U77mc" target="_blank" class="collection-item blue-text">Trig Functions</a>
+            <a href="https://www.youtube.com/watch?v=H-ybCx8gt-8"  target="_blank" class="collection-item blue-text">Chain Rule</a>
+            <a href="https://www.youtube.com/watch?v=xbviQHhU1rA" target="_blank" class="collection-item blue-text">Implicit Differentiation</a>
+            <a href="https://www.youtube.com/watch?v=9z1Dz60mWcQ" target="_blank" class="collection-item blue-text">Logarithmic Differentiation</a>
+            <a href="https://www.youtube.com/watch?v=JTVNUdL7sWs" target="_blank" class="collection-item blue-text">Curve Sketching</a>
+            <a href="https://www.youtube.com/watch?v=6WUjbJEeJwM" target="_blank" class="collection-item blue-text">Integrals</a>
+            <a href="https://www.youtube.com/watch?v=xec6HTcn2M8" target="_blank" class="collection-item blue-text">Areas Between Curves</a>
+          </div>
+        </div>
+      </div>
+      <!-- End Audio -->
+
+
+      <!-- Visual -->
+      <div id="visualDisplay"  style="display:none;">
+        <div class="container">
+          <h2 class="center-align">Practice Material (Visual Learning) - Calc 1</h2>
+          <h4 class="center-align">Please pick the topic you want a problems with shown solutions on:</h4>
+
+          <div class="collection center-align">
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/ComputingLimits.aspx" target="_blank" class="collection-item blue-text">Limits</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/LimitsAtInfinityI.aspx" target="_blank" class="collection-item blue-text">Limits at Invinity</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/DefnOfDerivative.aspx" target="_blank" class="collection-item blue-text">Definition of Derivatives</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/ProductQuotientRule.aspx" target="_blank" class="collection-item blue-text">Product Rule</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/ProductQuotientRule.aspx" target="_blank" class="collection-item blue-text">Quotient Rule</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/DiffTrigFcns.aspx" target="_blank" class="collection-item blue-text">Trig Functions</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/ChainRule.aspx"  target="_blank" class="collection-item blue-text">Chain Rule</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/ImplicitDIff.aspx" target="_blank" class="collection-item blue-text">Implicit Differentiation</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/LogDiff.aspx" target="_blank" class="collection-item blue-text">Logarithmic Differentiation</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/ShapeofGraphPtI.aspx" target="_blank" class="collection-item blue-text">Curve Sketching</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/IndefiniteIntegrals.aspx" target="_blank" class="collection-item blue-text">Integrals</a>
+            <a href="https://tutorial.math.lamar.edu/Problems/CalcI/AreaProblem.aspx" target="_blank" class="collection-item blue-text">Areas Between Curves</a>
+          </div>
+        </div>
+      </div>
+      <!-- End Visual -->
+
+      <span id="errorMessage" style="color: red" ></span>
+
+    </main><br><br><br>
+
+
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
+    </footer>
 
   </body>
 </html>
