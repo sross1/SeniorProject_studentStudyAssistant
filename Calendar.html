@@ -1,0 +1,195 @@
+<! -- Note this is actually the Task To Do page, replacement for calendar feature -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
+	  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	  <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <?!= include('JavaScript'); ?><!--INCLUDE JavaScript.html FILE-->
+  </head>
+  <script>
+
+    function tasks()
+    {
+      //document.getElementById("errorMessage").innerHTML = "tasks() entered."
+      var user = localStorage.getItem("username");
+      google.script.run.withSuccessHandler(updateTasks).getTaskNames(user);
+    }
+
+    function updateTasks(taskInfo)
+    {
+      //document.getElementById("errorMessage").innerHTML = "updateTasks() entered."
+      var tasks = [];
+      var task = "na";
+      var ids = []; 
+      var id = "na";
+      //document.getElementById("errorMessage").innerHTML = taskInfo.length;
+      //document.getElementById("errorMessage").innerHTML = taskInfo[2][1];
+
+      for(var i = 0; i < taskInfo.length; i++){
+        //document.getElementById("errorMessage").innerHTML = "for loop entered";
+        tasks[i] = taskInfo[0][i];
+        //document.getElementById("errorMessage").innerHTML = "task = " + tasks[i];
+        for(var j = 0; j < taskInfo[i].length; j++){
+          ids[j] = taskInfo[i][j];
+          //document.getElementById("errorMessage").innerHTML = "id = " + ids[j];
+        }
+      }
+
+      if(tasks.length === 0 || ids.length === 0){
+        document.getElementById("successMessage").innerHTML= "No current Tasks."
+      }else if(tasks.length === ids.length){
+        for(var i = 0; i < tasks.length; i++){
+          task = tasks[i];
+          id = ids[i];
+          makeCheckBox(task, id);
+        }
+      }else{
+        document.getElementById("errorMessage").innerHTML = "tasks length: " + tasks.length;
+      }
+
+    }
+    
+    function addTask()
+    {
+      var newTask = document.getElementById("newTask").value;
+      taskID = null;
+      makeCheckBox(newTask, taskID);
+
+      var user = localStorage.getItem("username"); 
+      var taskID = localStorage.getItem("taskID");
+
+      google.script.run.withSuccessHandler(function(output) 
+      {
+        if(output == 'TRUE')
+        {
+          document.getElementById("successMessage").innerHTML = "Successfully added task";    
+        }
+        else if(output == 'FALSE')
+        {
+            document.getElementById("errorMessage").innerHTML = "Failed to add task";     
+        }    
+      }).addNewTask(user, taskID, newTask);
+    }
+
+    function makeCheckBox(newTask, taskID)
+    {
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+
+      var span = document.createElement('span');
+      if(taskID == null)
+      {
+        span.id = guidGenerator();
+      } else {span.id = taskID;}
+
+      var theID = span.id
+      localStorage.setItem("taskID", JSON.stringify(theID));
+
+      var text = document.createTextNode(newTask);
+      span.appendChild(text);
+
+      var tag1 = document.createElement('label');
+      tag1.appendChild(input);
+      tag1.appendChild(span);
+
+      var tag2 = document.createElement('p');
+      tag2.appendChild(tag1);
+
+      var element = document.getElementById("id");
+      element.appendChild(tag2);
+
+      function guidGenerator() {
+        var S4 = function() {
+          return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        };
+        return (S4()+S4());
+      }
+    }
+
+  </script>
+
+  <body onload="tasks()">
+    <header>
+
+      <h1 class="header center green-text">Reminders</h1>
+
+      <!-- Navbar -->
+      <nav>
+        <div class="nav-wrapper blue">
+          <ul id="nav" class="left">
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=studentProfile">Profile</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>
+            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
+          </ul>
+        </div>
+      </nav>
+      <!-- End NavBar -->
+    </header><br><br><br>
+
+    <main>
+      
+      <!--<h4  class="header center">No Tasks!</h4> -->
+
+      <div class="container">
+        <div class="row">
+          <h5 class="header col s12 light center">Add New Task Here:</h5> 
+          <div class="input-field col s12">
+            <input id="newTask" type="text" class="center">
+          </div>
+        </div>
+        <div class="row center">
+          <button onclick="addTask()" class="waves-effect waves-light btn-large green z-depth-2"><i class="material-icons right">add</i>Add</button>
+          <!-- <button onclick="removeTask()" class="waves-effect waves-light btn-large red z-depth-2"><i class="material-icons right">add</i>Remove</button> -->
+          <span id="errorMessage" style="color: red" ></span>
+          <span id="successMessage" style="color: green" ></span>
+        </div>
+      </div><br><br>
+
+      <!-- Reminders -->
+      
+        
+      <div class="container center">
+        <h3  class="header center">To Do:</h3>
+        <form action="#" id="id"/>
+      </div><br><br><br><br><br>
+         
+      
+      <!-- End Reminders -->
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
