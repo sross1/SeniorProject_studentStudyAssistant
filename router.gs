@@ -1,3 +1,5 @@
+// Author: Justin Light
+
 //Home
 function loadHome() {
   return HtmlService.createTemplateFromFile("Home").evaluate();
