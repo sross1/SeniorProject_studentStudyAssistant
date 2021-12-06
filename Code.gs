@@ -1,7 +1,8 @@
 var Route = {};
 Route.path = function(route, callBack) { Route[route] = callBack; }
 
-
+//<!--Authors: Sydney Ross, Justin Light, Kim Lam-->
+// Justin worked on the router and some of the functions, and Syd and Kim worked on the functions
   function doGet(e)
   {
     //Home
