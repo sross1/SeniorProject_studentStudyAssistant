@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- HTML Author: Justin Light, Google Scripts Author: Sydney Ross -->
+
+<html lang="en">
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style> .preloader_css { display:none; } </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script >
+
+    function LoginUser()
+    {
+      var username = document.getElementById("username-field").value;
+      var password = document.getElementById("password-field").value;
+
+      google.script.run.withSuccessHandler(function(output) 
+      {
+        if(output == 'TRUE')
+        {
+          document.getElementById("main-holder").style.display = "none";
+          document.getElementById("preloader").style.display = "flex";
+
+          localStorage.setItem("username", JSON.stringify(username));
+          window.open('https://script.google.com/a/ltu.edu/macros/s/AKfycbyumAu6IGOCY7331DOs4WQIx4jtYq4Vx0-LcSn3UGk/dev?v=profile', '_top');
+        }
+        else if(output == 'FALSE')
+        {
+          document.getElementById("errorMessage").innerHTML = "Failed to Login";     
+        }    
+      }).checkLogin(username, password);
+    } 
+  </script>
+</head>
+
+<body style>
+  <?var url = getScriptUrl();?>
+  
+  <main id="main-holder">
+    <div class="container">
+      <h1 class="header blue-text">Login Page</h1>  
+      <div id="loginDisplay">
+        
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="username-field" type="text" class="login-display-field">
+            <label for="username-field">Email</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="password-field" type="password" class="login-display-field">
+            <label for="password-field">Password</label>
+          </div>
+        </div>
+
+        <div class= "row">
+          <button onclick="LoginUser()" class="waves-effect waves-light btn-large blue z-depth-2"><i class="material-icons right">login</i>Login</button>
+          <span id="errorMessage" style="color: red" ></span>
+        </div>
+      </div>
+    </div>
+  </main>
+  <main id="preloader" class="preloader_css">
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
+  </main><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+  <!-- Footer -->
+    <footer class="page-footer green">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
+              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2021 Copyright 
+        </div>
+      </div>
+    </footer>
+
+</body>
+
+</html>
