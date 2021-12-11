@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- HTML Author: Justin Light, Google Scripts Author: Sydney Ross -->
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      var currentFirstName = "default";
+
+      function displayProfile()
+      {
+        var user = localStorage.getItem("username");
+        document.getElementById("welcomeMessage").innerHTML = "Welcome " + user;
+        document.getElementById("email").value = user;
+        google.script.run.withSuccessHandler(updateInfo).getInfoData(user);
+      }
+
+      function updateInfo(infoData)
+      {
+        document.getElementById("first_name").value = infoData[0];
+        document.getElementById("last_name").value = infoData[1];
+        document.getElementById("phone").value = infoData[2];
+        M.updateTextFields();
+      }
+
+    </script>
+  </head>
+
+ <body onload="displayProfile()"> 
+   <?var url = getScriptUrl();?>
+   <center>
+    <!--Main Navigation-->
+    <header>
+
+      <h1 class="header center green-text">Profile</h1>
+      <h5 id="welcomeMessage"></h5>
+
+    </header>
+    
+    <span id="errorMessage" style="color: red" ></span>
+    <br>
+
+    <!-- User Display -->
+    <div class="container" display = "none">
+      <!-- User Information -->
+      <center>
+      <div class="col l6 s12">
+        <div class="info">
+          <h3 class="center-align green-text">Information</h3>
+          <div class="info_data">
+            <div class="data">
+              <h4 class="center-align">First Name</h4>
+                <input disabled id="first_name" type="text" class="center">
+            </div>
+            <div class="data">
+              <h4 class="center-align">Last Name</h4>
+              <input disabled id="last_name" type="text" class="center">
+            </div>
+            <div class="data">
+              <h4 class="center-align">Username</h4>
+              <input disabled id="email" type="text" class="center">
+            </div>
+            <div class="data">
+              <h4 class="center-align">Phone Number</h4>
+              <input disabled id="phone" type="text" class="center">
+            </div>
+          </div>
+        </div>
+      </div>
+      </center>
+    </div>
+        <!-- End User Information -->
+    </center>
+  </body>
+</html>
+
