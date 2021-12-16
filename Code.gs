@@ -1,8 +1,9 @@
+//Authors: Justin Light and Sydney Ross
+
 var Route = {};
 Route.path = function(route, callBack) { Route[route] = callBack; }
 
-//<!--Authors: Sydney Ross, Justin Light, Kim Lam-->
-// Justin worked on the router and some of the functions, and Syd and Kim worked on the functions
+
   function doGet(e)
   {
     //Home
@@ -198,17 +199,51 @@ function getLearningProfile(username)
   var procrastination = 'N/A';
   var online = 'N/A';
 
-  var url1 = 'https://docs.google.com/spreadsheets/d/1bYJi7-HJ4eq4BUy4LWMqfT0ehwP44G1jZ3qzrQrDDsU/edit#gid=564535258';
+  var url1 = 'https://docs.google.com/spreadsheets/d/1bYJi7-HJ4eq4BUy4LWMqfT0ehwP44G1jZ3qzrQrDDsU/edit#gid=1530903036';
   var ss= SpreadsheetApp.openByUrl(url1);
-  var webAppSheet = ss.getSheetByName("Cleaned Form Data");
+  var webAppSheet = ss.getSheetByName("Form Responses 1");
   var getLastRow =  webAppSheet.getLastRow();
-  for(var i = 1; i <= getLastRow; i++){
-    var userFromSheets = webAppSheet.getRange(i, 3).getDisplayValue();
+  for(var i = 2; i <= getLastRow; i++){
+    var userFromSheets = webAppSheet.getRange(i, 2).getDisplayValue();
     userFromSheets = '"'+ userFromSheets + '"';
     if(userFromSheets == username){
-      learning_styles = webAppSheet.getRange(i, 7).getDisplayValue();
-      procrastination = webAppSheet.getRange(i, 6).getDisplayValue();
-      online = webAppSheet.getRange(i, 5).getDisplayValue();
+      //0 never, 1 hardly ever, 2 sometimes, 3 often, 4 most of the time, 5 always
+      procrastination = webAppSheet.getRange(i, 7).getDisplayValue();
+      if (procrastination === 0){
+        procrastination = 'never';
+      } else if (procrastination === 1){
+        procrastination = 'hardly ever';
+      } else if (procrastination === 2){
+        procrastination = 'sometimes';
+      } else if (procrastination == 3){
+        procrastination = 'often';
+      } else if (procrastination === 4){
+        procrastination = 'most of the time';
+      }else{
+        procrastination = 'always';
+      }
+
+      // 0 = no, 1 = yes, 2 = depends
+      online = parseInt(webAppSheet.getRange(i, 6).getDisplayValue());
+      if (online == 0){
+        online = 'does not like';
+      } else if (online === 1){
+        online = 'likes';
+      }else{
+        online = 'likes sometimes';
+      }
+    }
+  }
+
+  url1 = 'https://docs.google.com/spreadsheets/d/1teB-_0Q0yENidSRv6iW9FwvXRZm63OEE9ldTqPOEbw8/edit#gid=0';
+  var ss= SpreadsheetApp.openByUrl(url1);
+  var webAppSheet = ss.getSheetByName("Sheet1");
+  var getLastRow =  webAppSheet.getLastRow();
+  for(var i = 1; i <= getLastRow; i++){
+    var userFromSheets = webAppSheet.getRange(i, 1).getDisplayValue();
+    userFromSheets = '"'+ userFromSheets + '"';
+    if(userFromSheets == username){
+      learning_styles = webAppSheet.getRange(i, 5).getDisplayValue();
     }
   }
   
@@ -220,15 +255,15 @@ function getLearningStyle(username)
 {
   var learning_style = 'N/A';
 
-  var url1 = 'https://docs.google.com/spreadsheets/d/1bYJi7-HJ4eq4BUy4LWMqfT0ehwP44G1jZ3qzrQrDDsU/edit#gid=564535258';
+  var url1 = 'https://docs.google.com/spreadsheets/d/1teB-_0Q0yENidSRv6iW9FwvXRZm63OEE9ldTqPOEbw8/edit#gid=0';
   var ss= SpreadsheetApp.openByUrl(url1);
-  var webAppSheet = ss.getSheetByName("Cleaned Form Data");
+  var webAppSheet = ss.getSheetByName("Sheet1");
   var getLastRow =  webAppSheet.getLastRow();
   for(var i = 1; i <= getLastRow; i++){
-    var userFromSheets = webAppSheet.getRange(i, 3).getDisplayValue();
+    var userFromSheets = webAppSheet.getRange(i, 1).getDisplayValue();
     userFromSheets = '"'+ userFromSheets + '"';
     if(userFromSheets == username){
-      learning_style = webAppSheet.getRange(i, 7).getDisplayValue();
+      learning_style = webAppSheet.getRange(i, 5).getDisplayValue();
     }
   }
   
