@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--Authors: Sydney Ross and Justin Light-->
+  <!--Authors: Sydney Ross, Justin Light, Kim Lam-->
 <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -19,7 +19,9 @@
         if(output == 'TRUE')
         {
           document.getElementById("main-holder").style.display = "none";
+          document.getElementById("footer").style.display = "none";
           document.getElementById("preloader").style.display = "flex";
+          
 
           localStorage.setItem("username", JSON.stringify(username));
           
@@ -97,7 +99,7 @@
 
 
   <!-- Footer -->
-    <footer class="page-footer green">
+    <footer id="footer" class="page-footer green">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
