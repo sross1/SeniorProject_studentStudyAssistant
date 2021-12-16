@@ -1,4 +1,4 @@
-// Author: Justin Light
+//Author: Justin Light
 
 //Home
 function loadHome() {
