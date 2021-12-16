@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <!--Authors: Sydney Ross and Justin Light-->
+	<!--Authors: Sydney Ross and Justin Light-->
   <head>
   <base target="_top">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -36,12 +36,19 @@
 
       function updateLearningProfile(learningProfile)
       {
-        if(learningProfile[0] != 'N/A')
+        if(learningProfile[0] != 'N/A' || learningProfile[1] != 'N/A' || learningProfile[2] != 'N/A')
         {
           document.getElementById("newUserInstructions").style.display = "none";
+          if (learningProfile[0] == 'N/A' && learningProfile[1] != 'N/A'){
+            document.getElementById("predicted_style").value = "Prediction Algorithm must be ran by Admin.";
+          }
+          else{
+            document.getElementById("predicted_style").value = learningProfile[0];
+          }
+        } else{
+          document.getElementById("predicted_style").value = learningProfile[0];    
         }
 
-        document.getElementById("predicted_style").value = learningProfile[0];    
         document.getElementById("procrastination").value = learningProfile[1];    
         document.getElementById("online_learning").value = learningProfile[2];
         M.updateTextFields();
