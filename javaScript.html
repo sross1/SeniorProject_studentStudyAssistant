@@ -1,191 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <!--Authors: Sydney Ross and Justin Light-->
-  <head>
-  <base target="_top">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-  <?!= include('JavaScript'); ?><!--INCLUDE JavaScript.html FILE-->
+<script>
+  //Authors: Justin Light
+  google.script.run.withSuccessHandler(showData).getData();
 
-    <script>
-
-      function displayProfile()
-      {
-        var user = localStorage.getItem("username");
-        document.getElementById("email").innerHTML = user;
-        google.script.run.withSuccessHandler(updateInfo).getInfoData(user);
-        google.script.run.withSuccessHandler(updateLearningProfile).getLearningProfile(user);
-      }
-
-      function updateInfo(infoData, learningProfile)
-      {
-        document.getElementById("first_name").value = infoData[0];
-        document.getElementById("last_name").value = infoData[1];  
-        document.getElementById("email").value =infoData[2];  
-        document.getElementById("phone").value = infoData[3];
-        document.getElementById("password").value = infoData[4];
-        document.getElementById("alerts").value = infoData[5];
-        M.updateTextFields();
-      }
-
-      function updateLearningProfile(learningProfile)
-      {
-        if(learningProfile[0] != 'N/A')
-        {
-          document.getElementById("newUserInstructions").style.display = "none";
-        }
-
-        document.getElementById("predicted_style").value = learningProfile[0];    
-        document.getElementById("procrastination").value = learningProfile[1];    
-        document.getElementById("online_learning").value = learningProfile[2];
-        M.updateTextFields();
-      }
-
-    </script>
-
-
-  </head>
-  
-  <body onload="displayProfile()">
-    <?var url = getScriptUrl();?>
-    <header>
-      
-      <h1 class="header center green-text">Student Profile</h1>
-
-      <!--Navbar-->
-      <nav>
-        <div class="nav-wrapper blue">
-          <ul id="nav" class="left">
-            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
-            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
-            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>                     
-            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
-          </ul>
-        </div>
-      </nav>
-      <!--End NavBar -->
-
-    </header>
-
-    
-    <!-- Survey -->
-    <div class="container center-align" id="newUserInstructions" display="none">
-      <h4> Student Profile Quiz: </h4>
-      <h8> If you are a new user please fill out this form to setup your profile: </h8>
-      
-      <div class="row center-align">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfHVr36hYZ8bIKjjk0SCgyKPGrBiH33zfT1oTI91384dY1ucg/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-      </div>
-    </div>
-    <!-- End Survey -->
-  
-    <span id="errorMessage" style="color: red" ></span>
-    <br>
-
-    <!-- User's name -->
-    <div class="container center-align" display="none">
-      <i class="large material-icons blue-text">account_circle</i>
-      <div class="row">
-        <h4 class="center-align">First Name</h4>
-        <div class="input-field col s12">
-          <input disabled value id="first_name" type="text" class="center">
-        </div>
-      </div>
-      <div class="row">
-        <h4 class="center-align">Last Name</h4>
-        <div class="input-field col s12">
-          <input disabled id="last_name" type="text" class="center">
-        </div>
-      </div>
-    </div>
-    <!-- End User's name -->
-
-    <!-- User Display -->
-    <div class="container" display = "none">
-      <div class="row">
-
-        <!-- User Information -->
-        <div class="col l6 s12">
-          <div class="info">
-            <h3 class="center-align green-text">Information</h3>
-            <div class="info_data">
-              <div class="data">
-                <h4 class="center-align">Username</h4>
-                <input disabled id="email" type="text" class="center">
-              </div>
-              <div class="data">
-                <h4 class="center-align">Phone Number</h4>
-                <input disabled id="phone" type="text" class="center">
-              </div>
-              <div class="data">
-                <h4 class="center-align">Password</h4>
-                <input disabled id="password" type="text" class="center">
-              </div>
-              <div class="data">
-                <h4 class="center-align">Notifications</h4>
-                <input disabled id="alerts" type="text" class="center">
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End User Information -->
-
-        <!-- Learning Profile -->
-        <div class="col l4 offset-l2 s12">
-          <h3 class="center-align green-text">Learning Profile</h3>
-          <div class="projects_data">
-            <div class="data">
-              <h4 class="center-align">Predicted Learning Style</h4>
-              <input disabled id="predicted_style" type="text" class="center">
-            </div>
-            <div class="data">
-              <h4 class="center-align">Procrastination Habits</h4>
-              <input disabled id="procrastination" type="text" class="center">
-            </div>
-            <div class="data">
-              <h4 class="center-align">Online Learning Preference</h4>
-              <input disabled id="online_learning" type="text" class="center">
-            </div>
-          </div>
-        </div>
-        <!-- End Learning Profile -->
-
-      </div>
-    </div><br><br>
-    <!-- End User Display -->
-
-
-    <!-- Footer -->
-    <footer class="page-footer green">
-      <div class="container">
-        <div class="row">
-          <div class="col l6 s12">
-            <h5 class="white-text">To learn more about our project, follow us on our social media platforms!</h5>
-          </div>
-          <div class="col l4 offset-l2 s12">
-            <h5 class="white-text">Links</h5>
-            <ul>
-              <li><a class="blue-text text-lighten-3" href="#!">Facebook</a></li>
-              <li><a class="blue-text text-lighten-3" href="#!">Twitter</a></li>
-              <li><a class="blue-text text-lighten-3" href="#!">Instagram</a></li>
-              <li><a class="blue-text text-lighten-3" href="#!">Linkedin</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-copyright">
-        <div class="container">
-          © 2021 Copyright 
-        </div>
-      </div>
-    </footer>
-
-  </body>
-</html>
-
+  //THIS FUNCTION GENERATES THE DATA TABLE FROM THE DATA ARRAY
+  function showData(dataArray){
+    $(document).ready(function(){
+      $('#data-table').DataTable({
+        data: dataArray,
+        columns: [
+          {"title":"First Name"},
+          {"title":"Last Name"},
+          {"title":"Age"},
+          {"title":"Online Learning Preference"},
+          {"title":"Procrastination Habits"},
+          {"title":"Predicted Learning Style"}
+        ]
+      });
+    });
+  }
+</script>
