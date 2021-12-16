@@ -1,129 +1,107 @@
 <!DOCTYPE html>
 <html>
-  <!--Authors: Sydney Ross and Justin Light-->
+	<!--Authors: Sydney Ross, Justin Light, and Kim Lam-->
   <head>
-  <base target="_top">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <!--INCLUDE REQUIRED EXTERNAL JAVASCRIPT AND CSS LIBRARIES-->
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-  <?!= include('JavaScript'); ?><!--INCLUDE JavaScript.html FILE-->
-
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-
-      document.addEventListner("DOMContentLoaded", function(){
-          var tbody = document.getElementById('table-body');
-          var row = document.createElement('tr');
-          var col1 = document.createElement('td');
-          col1.textContent = 'Apple';
-          row.appendChild(col1);
-          tbody.appendChild(row)
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems);
       });
 
+
+      function AddRow()
+      {
+        var firstname = document.getElementById("firstname").value;
+        var lastname = document.getElementById("lastname").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var occupation = document.getElementById("occupation").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var reminders = document.getElementById("reminders").value;
+        google.script.run.withSuccessHandler(function(output) 
+        {
+          if(output == 'TRUE')
+          {
+            window.open('https://script.google.com/a/ltu.edu/macros/s/AKfycbxThgbBGDgnu465XkTmF0ZTliuYdP-gCcCkDlfcFZTz/dev?v=login', '_top');    
+          }
+          else if(output == 'FALSE')
+          {
+            document.getElementById("errorMessage").innerHTML = "Failed to Register";     
+          }    
+        }).AddRecord(firstname, lastname, email, password, occupation, phoneNumber, reminders);
+      }
     </script>
-
-
   </head>
-  
-  <body>
-      <?var url = getScriptUrl();?>
-     <!--Main Navigation-->
-    <header>
+  <body style>
+    <?var url = getScriptUrl();?>
+    <div id="registrationDisplay" >
+      <div class="container">
+        <h1 class="header blue-text">Registration Page</h1>
 
-      <h1 class="header center green-text">Professor Profile</h1>
-
-      <!--Navbar-->
-      <nav>
-        <div class="nav-wrapper blue">
-          <ul id="nav" class="left">
-            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=dashboard">Dashboard</a></li>
-            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=calendar">Reminders</a></li>
-            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=feedback">Feedback</a></li>            
-            <li><a href="<?= ScriptApp.getService().getUrl(); ?>?v=home">Log Out</a></li>
-          </ul>
-        </div>
-      </nav>
-      <!--End NavBar -->
-
-    </header>
-    
-    <!-- Survey -->
-    <div class="container center-align" id="newUserInstructions" display = "none">
-      <h4> Professor Profile Quiz: </h4>
-      <div id="newUserInstructions">
-        <p> If you are a new user please fill out this <a href= "https://forms.gle/KavmuobYj4zzuEK49" target="_blank">form</a> to create your user profile.</p>
-      </div>
-    </div>
-    <!-- End Survey -->
-
-    <!-- User's name -->
-    <div class="container center-align" display = "none">
-      <div class="row">
-        <i class="large material-icons blue-text">account_circle</i>
-        <h3 class="header blue-text">User's Name</h3>
-         <h5 class="header col s12 light">Professor</h5>
-      </div>
-    </div>
-    <!-- End User's name -->
-
-    <!-- User Display -->
-    <div class="container" display = "none">
-      <div class="row">
-        <!-- User Information -->
-        <div class="col l6 s12">
-          <div class="info">
-            <h3 class="center-align green-text">Information</h3>
-            <div class="info_data">
-              <div class="data">
-                <h4 class="center-align">Username</h4>
-                <p class="center-align">sross1@ltu.edu</p>
-              </div>
-              <div class="data">
-                <h4 class="center-align">Phone</h4>
-                <p class="center-align">0001-213-998761</p>
-              </div>
-              <div class="data">
-                <h4 class="center-align">Password</h4>
-                <p class="center-align">*******</p>
-              </div>
-              <div class="data">
-                <h4 class="center-align">Notifications</h4>
-                <p class="center-align">ON</p>
-              </div>
-            </div>
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="firstname" type="text" class="register-display-field">
+            <label for="firstname">First Name</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="lastname" type="text" class="register-display-field">
+            <label for="lastname">Last Name</label>
           </div>
         </div>
-        <!-- End User Information -->
 
-        <!-- Teaching Profile -->
-        <div class="col l4 offset-l2 s12">
-          <h3 class="center-align green-text">Teaching Profile</h3>
-          <div class="projects_data">
-            <div class="data">
-              <h4 class="center-align">Classes</h4>
-              <p class="center-align">Calc 1, Calc 2, Differential Equations, and University Physics 1</p>
-            </div>
-            <div class="data">
-              <h4 class="center-align">Teaching Style</h4>
-              <p class="center-align">Tactile. Focuses a lot of class time on practice problems and exercises as opposed to lecture based.</p>
-            </div>
-            <div class="data">
-              <h4 class="center-align">Online Learning Preference</h4>
-              <p class="center-align">Sometimes. You sometimes like teaching online depending on the course and the types of students in the course.</p>
-            </div>
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="email" type="text" class="register-display-field">
+            <label for="email">Email</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="password" type="password" class="register-display-field">
+            <label for="password">Password</label>
           </div>
         </div>
-        <!-- End Teaching Profile -->
+
+        <div class="row">
+          <div class="input-field col s3">
+            <input id="phoneNumber" type="text" class="register-display-field">
+            <label for="phoneNumber">Phone Number</label>
+          </div>
+            <div class="input-field col s12">
+            <select name="reminders" id="reminders">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="YES">Yes</option>
+              <option value="NO">No</option>
+            </select>
+            <label>Would you like Reminders?</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <select name="occupation" id="occupation">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="Student">Student</option>
+              <option value="Professor">Professor</option>
+            </select>
+            <label>Are you a Student or a Professor?</label>
+          </div>
+        </div>
+
+        <div class= "row">
+          <button onclick="AddRow()" class="waves-effect waves-light btn-large green z-depth-2"><i class="material-icons right">add</i>Register</button>
+          <span id="errorMessage" style="color: red" ></span>
+        </div>
+        <a href= "<?= ScriptApp.getService().getUrl(); ?>?v=home"class="waves-effect waves-light btn black z-depth-2"><i 
+          class="material-icons   right">arrow_back</i>Back To Home</a>
       </div>
-    </div><br><br>
-    <!-- End User Display -->
+    </div><br><br><br><br><br><br>
 
-
-      <!-- Footer -->
+  <!-- Footer -->
     <footer class="page-footer green">
       <div class="container">
         <div class="row">
@@ -148,7 +126,5 @@
       </div>
     </footer>
 
-
   </body>
 </html>
-
