@@ -12,18 +12,19 @@
       var user = localStorage.getItem("username");
       google.script.run.withSuccessHandler(changeDisplay).getLearningStyle(user);
     }
-
+    
+    //selects the right study material
     function changeDisplay(learning_style)
     {
-      if(learning_style === 'tactile')
+      if(learning_style === 'Tactile')
       {
         document.getElementById("tactileDisplay").style.display = "flex";
       }
-      else if(learning_style === 'audio')
+      else if(learning_style === 'Audio')
       {
         document.getElementById("audioDisplay").style.display = "flex";
       }
-      else if(learning_style === 'visual')
+      else if(learning_style === 'Visual')
       {
         document.getElementById("visualDisplay").style.display = "flex";
       }
